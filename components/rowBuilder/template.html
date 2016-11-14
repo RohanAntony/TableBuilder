@@ -1,0 +1,6 @@
+<div class="">
+  <div ng-repeat="columnName in $ctrl.columnNames">
+    <input type="text" ng-model="$ctrl.row[columnName]" placeholder="Enter {{ columnName }}"/>
+  </div>
+  <input type="button" value="Add row!!" ng-click="$ctrl.addRow()"/>
+</div>

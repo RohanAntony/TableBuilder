@@ -1,0 +1,11 @@
+<div class="">
+  <h2>Final Table</h2>
+  <table border="1">
+    <tr>
+      <th ng-repeat="heading in $ctrl.headings" style="padding:10px">{{ heading }}</th>
+    </tr>
+    <tr ng-repeat="row in $ctrl.body">
+      <td ng-repeat="index in $ctrl.headings" style="padding:10px">{{ row[index] }}</td>
+    </tr>
+  </table>
+</div>
