@@ -7,8 +7,13 @@ angular.module('rowBuilder').component('rowBuilder',{
     TableDataService.getAllColumnNames(function(columnNames){
       ctrl.columnNames = columnNames;
     })
-    ctrl.addRow = function(){
-      //add new row to the table
+    ctrl.addRow = function(rowObject){
+      var row = {};
+      ctrl.columnNames.forEach(function(column){
+        row[column] = ctrl.row[column];
+        ctrl.row[column] = '';
+      })
+      TableDataService.addRow(row);
     }
   }]
 })

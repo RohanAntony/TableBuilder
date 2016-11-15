@@ -18,10 +18,24 @@ angular.module('TableDataService').factory('TableDataService',['$rootScope',func
       callback(data.columnData);
     })
   }
+  function publishRowChanges(){
+    $rootScope.$broadcast('UpdateTableBody',{
+      body:fact.body,
+    });
+  }
+  function subscribeRowChanges(callback){
+    $rootScope.$on('UpdateTableBody',function(event,data){
+      callback(data.body);
+    })
+  }
 
   //public columnName functions
   function deleteColumn(index,callback){
-    console.log(fact.columnData);
+    var name = fact.columnData[index].name;
+    fact.body.forEach(function(rowData,index){
+      delete fact.body[index][name];
+    })
+    console.log(fact.body);
     fact.columnData.splice(index,1);
     callback(fact.columnData);
     publishColumnChanges();
@@ -35,9 +49,9 @@ angular.module('TableDataService').factory('TableDataService',['$rootScope',func
     fact.columnData = columnData;
     publishColumnChanges();
   }
-  function getColumns(columnData){
+  function getColumns(callback){
     subscribeColumnChanges(function(columnData){
-      fact.columnData = columnData;
+      callback(fact.columnData);
     })
   }
   function getCheckedColumnNames(callback){
@@ -61,6 +75,22 @@ angular.module('TableDataService').factory('TableDataService',['$rootScope',func
     })
   }
 
+  //row operations
+  function addRow(rowData){
+    fact.body.push(rowData);
+    publishRowChanges();
+  }
+  function getAllRows(callback){
+    subscribeRowChanges(function(body){
+      callback(fact.body);
+    })
+  }
+  function deleteRow(index,callback){
+    fact.body.splice(index,1);
+    callback(fact.body);
+    publishRowChanges();
+  }
+
   return {
     deleteColumn:deleteColumn,
     addColumn:addColumn,
@@ -68,5 +98,8 @@ angular.module('TableDataService').factory('TableDataService',['$rootScope',func
     getColumns:getColumns,
     getCheckedColumnNames:getCheckedColumnNames,
     getAllColumnNames:getAllColumnNames,
+    addRow:addRow,
+    getAllRows:getAllRows,
+    deleteRow:deleteRow
   }
 }])

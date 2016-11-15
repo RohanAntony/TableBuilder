@@ -3,9 +3,12 @@
   <table border="1">
     <tr>
       <th ng-repeat="heading in $ctrl.headings" style="padding:10px">{{ heading }}</th>
+      <td ng-show="$ctrl.body.length" colspan="2">Operations</td>
     </tr>
-    <tr ng-repeat="row in $ctrl.body">
+    <tr ng-repeat="row in $ctrl.body track by $index">
       <td ng-repeat="index in $ctrl.headings" style="padding:10px">{{ row[index] }}</td>
+      <td><a href="#" ng-click="$ctrl.deleteRow($index);">Delete</a></td>
+      <td><a href="#" ng-click="$ctrl.editRow($index);">Edit</a></td>
     </tr>
   </table>
 </div>

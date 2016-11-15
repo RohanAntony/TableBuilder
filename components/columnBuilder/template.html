@@ -2,7 +2,7 @@
   <h2>Modify Columns</h2>
   <p ng-show="$ctrl.showMessage">{{ $ctrl.message }}</p>
   <ul>
-    <li ng-repeat="column in $ctrl.columns track by $index" style="list-style-type:none">
+    <li ng-repeat="column in $ctrl.columnData track by $index" style="list-style-type:none">
       <input type="checkbox" ng-model="column.checked" ng-click="$ctrl.rePublish()"/>
       {{ column.name }}
       <a href="#" ng-click="$ctrl.deleteColumn($index)">Del</a>

@@ -26,8 +26,8 @@ angular.module('columnBuilder').component('columnBuilder',{
           checked:true,
           name:name
         },function(columnData){ //callback
-          TableDataService.getColumns(function(columnData){
-            ctrl.columnData = columnData;
+          TableDataService.getColumns(function(columnData2){
+            ctrl.columnData = columnData2;
           })
         })
       }
